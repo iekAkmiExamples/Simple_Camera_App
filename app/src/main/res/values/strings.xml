@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Camera app</string>
+    <string name="capture_an_image_app">Capture an Image App</string>
+    <string name="capture_a_photo">Capture a photo</string>
+</resources>
