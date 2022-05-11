@@ -39,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //ui elements
         this.cameraPermission = false;
         this.imageView = findViewById(R.id.imageView);
         this.captureButton = findViewById(R.id.capture_button);
-
+        //action listener
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void requestCameraPermission() {
+        //log info message in device log
         Log.println(Log.INFO, "Check", "Permission Enum " + permissions.CAMERA.ordinal());
-        System.out.println(permissions.CAMERA.ordinal());
+        //request permission
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, permissions.CAMERA.ordinal());
 
     }
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             //deprecated way
             //startActivityForResult(takePictureIntent, permissions.CAMERA.ordinal());
             //new way to open camera
-            requestActivityLauncher.launch(takePictureIntent);
+            this.requestActivityLauncher.launch(takePictureIntent);
         } catch (ActivityNotFoundException e) {
             // display error state to the user
             Log.e(getString(R.string.app_name), "failed to open Camera");
@@ -103,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             //check if has granted camera permission
             if (checkCameraPermission()) {
+                //log info message in device log
                 Log.println(Log.INFO, "Check", "Permission Granted: " + checkCameraPermission());
-                openCamera();
+                this.openCamera();
             }
         }
     }
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == permissions.CAMERA.ordinal()) {
-            setImageToView(data);
+            this.setImageToView(data);
         }
     }
 
